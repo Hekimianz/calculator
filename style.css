@@ -71,9 +71,7 @@ button{
     color: #F0F0F0;
 }
 
-button:hover{
-    background-color: #5C5C5C;
-}
+
 
 .footer{
     position: fixed;
@@ -98,7 +96,17 @@ footer img{
     height: 45px;
 }
 
-img:hover{
+footer img:hover{
     width:50px;
     height:50px;
+}
+
+
+button img{
+    width: 70px;
+    padding-top: 10px;    
+}
+
+#clear{
+    color: rgb(255, 164, 164);
 }

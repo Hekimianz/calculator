@@ -104,6 +104,9 @@ buttons[9].addEventListener("click", function () {
 let clear = document.getElementById("clear");
 clear.addEventListener("click", function () {
     displayValue = "";
+    firstNum = "";
+    secondNum = "";
+    operatorChosen = "";
     screen.textContent = displayValue;
 })
 
@@ -111,33 +114,337 @@ clear.addEventListener("click", function () {
 let operators = document.getElementsByClassName("operators");
 let operatorChosen = "";
 operators[0].addEventListener("click", function () {
-    operatorChosen = "add";
-    firstNum = displayValue;
-    displayValue = "";
+    if (operatorChosen == "") {
+        operatorChosen = "add";
+        firstNum = displayValue;
+        displayValue = "";
+    }
+    else if (operatorChosen !== "") {
+        secondNum = displayValue;
+        operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+        operatorChosen = "add";
+        displayValue = "";
+        screen.textContent = answer;
+        firstNum = answer;
+    }
 })
 operators[1].addEventListener("click", function () {
-    operatorChosen = "subtract";
-    firstNum = displayValue;
-    displayValue = "";
+    if (operatorChosen == "") {
+        operatorChosen = "subtract";
+        firstNum = displayValue;
+        displayValue = "";
+    }
+    else if (operatorChosen !== "") {
+        secondNum = displayValue;
+        operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+        operatorChosen = "subtract";
+        displayValue = "";
+        screen.textContent = answer;
+        firstNum = answer;
+    }
 })
 operators[2].addEventListener("click", function () {
-    operatorChosen = "multiply";
-    firstNum = displayValue;
-    displayValue = "";
+    if (operatorChosen == "") {
+        operatorChosen = "multiply";
+        firstNum = displayValue;
+        displayValue = "";
+    }
+    else if (operatorChosen !== "") {
+        secondNum = displayValue;
+        operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+        operatorChosen = "multiply";
+        displayValue = "";
+        screen.textContent = answer;
+        firstNum = answer;
+    }
 })
 operators[3].addEventListener("click", function () {
-    operatorChosen = "divide";
-    firstNum = displayValue;
-    displayValue = "";
+    if (operatorChosen == "") {
+        operatorChosen = "divide";
+        firstNum = displayValue;
+        displayValue = "";
+    }
+    else if (operatorChosen !== "") {
+        secondNum = displayValue;
+        operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+        operatorChosen = "divide";
+        displayValue = "";
+        screen.textContent = answer;
+        firstNum = answer;
+
+    }
 })
 
 // Make equals button work (Save second num chosen and run operation)
 let equals = document.getElementById("equals");
 equals.addEventListener("click", function () {
     secondNum = displayValue;
-    operate(operatorChosen, parseInt(firstNum), parseInt(secondNum));
+    let firstParsed = parseFloat(firstNum);
+    let secondParsed = parseFloat(secondNum);
+    operate(operatorChosen, firstParsed, secondParsed);
     screen.textContent = answer;
     displayValue = "";
 })
 
+// Add a Decimal function
+let decimal = document.getElementById("decimal");
+decimal.addEventListener("click", function () {
+    if (displayValue.includes(".")) {
+        return;
+    }
+    else if (displayValue[0]) {
+        displayValue = displayValue + ".";
+        screen.textContent = displayValue;
+    }
+    else {
+        displayValue = "0";
+        displayValue = displayValue + ".";
+        screen.textContent = displayValue;
+    }
+})
+
+// Add a bakspace button function
+let backspace = document.getElementById("del");
+backspace.addEventListener("click", function () {
+    if (displayValue) {
+        displayValue = displayValue.slice(0, -1);
+        screen.textContent = displayValue;
+    }
+    else {
+        return;
+    }
+})
+
+// Add button hover effect
+for (let i = 0; i < allButtons.length; i++) {
+    allButtons[i].addEventListener("mouseenter", function () {
+        allButtons[i].style.backgroundColor = "#5C5C5C";
+    })
+    allButtons[i].addEventListener("mouseleave", function () {
+        allButtons[i].style.backgroundColor = "#707070";
+    })
+}
+
+//Add keyboard functionality
+document.addEventListener("keydown", (event) => {
+    let name = event.key;
+    let code = event.code;
+    if (name == 1) {
+        allButtons[0].style.backgroundColor = "#404040";
+        displayValue = displayValue + "1";
+        screen.textContent = displayValue;
+    }
+    else if (name == 2) {
+        allButtons[1].style.backgroundColor = "#404040";
+        displayValue = displayValue + "2";
+        screen.textContent = displayValue;
+    }
+    else if (name == 3) {
+        allButtons[2].style.backgroundColor = "#404040";
+        displayValue = displayValue + "3";
+        screen.textContent = displayValue;
+    }
+    else if (name == 4) {
+        allButtons[3].style.backgroundColor = "#404040";
+        displayValue = displayValue + "4";
+        screen.textContent = displayValue;
+    }
+    else if (name == 5) {
+        allButtons[4].style.backgroundColor = "#404040";
+        displayValue = displayValue + "5";
+        screen.textContent = displayValue;
+    }
+    else if (name == 6) {
+        allButtons[5].style.backgroundColor = "#404040";
+        displayValue = displayValue + "6";
+        screen.textContent = displayValue;
+    }
+    else if (name == 7) {
+        allButtons[6].style.backgroundColor = "#404040";
+        displayValue = displayValue + "7";
+        screen.textContent = displayValue;
+    }
+    else if (name == 8) {
+        allButtons[7].style.backgroundColor = "#404040";
+        displayValue = displayValue + "8";
+        screen.textContent = displayValue;
+    }
+    else if (name == 9) {
+        allButtons[8].style.backgroundColor = "#404040";
+        displayValue = displayValue + "9";
+        screen.textContent = displayValue;
+    }
+    else if (name == 0) {
+        allButtons[11].style.backgroundColor = "#404040";
+        displayValue = displayValue + "0";
+        screen.textContent = displayValue;
+    }
+    else if (name == "+") {
+        allButtons[9].style.backgroundColor = "#404040";
+        if (operatorChosen == "") {
+            operatorChosen = "add";
+            firstNum = displayValue;
+            displayValue = "";
+        }
+        else if (operatorChosen !== "") {
+            secondNum = displayValue;
+            operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+            operatorChosen = "add";
+            displayValue = "";
+            screen.textContent = answer;
+            firstNum = answer;
+        }
+    }
+    else if (name == "-") {
+        allButtons[10].style.backgroundColor = "#404040";
+        if (operatorChosen == "") {
+            operatorChosen = "subtract";
+            firstNum = displayValue;
+            displayValue = "";
+        }
+        else if (operatorChosen !== "") {
+            secondNum = displayValue;
+            operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+            operatorChosen = "subtract";
+            displayValue = "";
+            screen.textContent = answer;
+            firstNum = answer;
+        }
+    }
+    else if (name == "*") {
+        allButtons[12].style.backgroundColor = "#404040";
+        if (operatorChosen == "") {
+            operatorChosen = "multiply";
+            firstNum = displayValue;
+            displayValue = "";
+        }
+        else if (operatorChosen !== "") {
+            secondNum = displayValue;
+            operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+            operatorChosen = "multiply";
+            displayValue = "";
+            screen.textContent = answer;
+            firstNum = answer;
+        }
+    }
+    else if (name == "/") {
+        allButtons[13].style.backgroundColor = "#404040";
+        if (operatorChosen == "") {
+            operatorChosen = "divide";
+            firstNum = displayValue;
+            displayValue = "";
+        }
+        else if (operatorChosen !== "") {
+            secondNum = displayValue;
+            operate(operatorChosen, parseFloat(firstNum), parseFloat(secondNum));
+            operatorChosen = "divide";
+            displayValue = "";
+            screen.textContent = answer;
+            firstNum = answer;
+        }
+    }
+    else if (name == "Backspace") {
+        allButtons[17].style.backgroundColor = "#404040";
+        if (displayValue) {
+            displayValue = displayValue.slice(0, -1);
+            screen.textContent = displayValue;
+        }
+        else {
+            return;
+        }
+    }
+    else if (name == "Enter") {
+        secondNum = displayValue;
+        let firstParsed = parseFloat(firstNum);
+        let secondParsed = parseFloat(secondNum);
+        operate(operatorChosen, firstParsed, secondParsed);
+        screen.textContent = answer;
+        displayValue = "";
+        allButtons[14].style.backgroundColor = "#404040";
+    }
+    else if (name == ".") {
+        allButtons[16].style.backgroundColor = "#404040";
+
+        if (displayValue.includes(".")) {
+            return;
+        }
+        else if (displayValue[0]) {
+            displayValue = displayValue + ".";
+            screen.textContent = displayValue;
+        }
+        else {
+            displayValue = "0";
+            displayValue = displayValue + ".";
+            screen.textContent = displayValue;
+        }
+    }
+    else if (name == "c") {
+        displayValue = "";
+        firstNum = "";
+        secondNum = "";
+        operatorChosen = "";
+        screen.textContent = displayValue;
+        allButtons[15].style.backgroundColor = "#404040";
+    }
+})
+
+// keyup for click effect
+document.addEventListener("keyup", (event) => {
+    let name = event.key;
+    let code = event.code;
+    if (name == 1) {
+        allButtons[0].style.backgroundColor = "#707070";
+    }
+    else if (name == 2) {
+        allButtons[1].style.backgroundColor = "#707070";
+    }
+    else if (name == 3) {
+        allButtons[2].style.backgroundColor = "#707070";
+    }
+    else if (name == 4) {
+        allButtons[3].style.backgroundColor = "#707070";
+    }
+    else if (name == 5) {
+        allButtons[4].style.backgroundColor = "#707070";
+    }
+    else if (name == 6) {
+        allButtons[5].style.backgroundColor = "#707070";
+    }
+    else if (name == 7) {
+        allButtons[6].style.backgroundColor = "#707070";
+    }
+    else if (name == 8) {
+        allButtons[7].style.backgroundColor = "#707070";
+    }
+    else if (name == 9) {
+        allButtons[8].style.backgroundColor = "#707070";
+    }
+    else if (name == 0) {
+        allButtons[11].style.backgroundColor = "#707070";
+    }
+    else if (name == "+") {
+        allButtons[9].style.backgroundColor = "#707070";
+    }
+    else if (name == "-") {
+        allButtons[10].style.backgroundColor = "#707070";
+    }
+    else if (name == "*") {
+        allButtons[12].style.backgroundColor = "#707070";
+    }
+    else if (name == "/") {
+        allButtons[13].style.backgroundColor = "#707070";
+    }
+    else if (name == "Backspace") {
+        allButtons[17].style.backgroundColor = "#707070";
+    }
+    else if (name == "Enter") {
+        allButtons[14].style.backgroundColor = "#707070";
+    }
+    else if (name == ".") {
+        allButtons[16].style.backgroundColor = "#707070";
+    }
+    else if (name == "c") {
+        allButtons[15].style.backgroundColor = "#707070";
+    }
+})
 
